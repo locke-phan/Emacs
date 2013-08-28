@@ -13,9 +13,13 @@
 (c-add-style "my-cc-mode" my-cc-style)
 ;==================================================================
 
+;; Display Mark
 (transient-mark-mode)
+
+;; Auto Revert/Update buffer
 (global-auto-revert-mode)
 
+;; Comment or uncomment region or line with Meta-;
 (defun comment-or-uncomment-region-or-line ()
   "Comments or uncomments the current line or region."
   (interactive)
@@ -26,11 +30,14 @@
   )
  
 (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
+;; =================================================================
+
+;; Move by defun with meta-up and meta-down
 (define-key input-decode-map "\e\eOA" [(meta up)])
 (define-key input-decode-map "\e\eOB" [(meta down)])
 (global-set-key [(meta up)] 'beginning-of-defun)
 (global-set-key [(meta down)] 'end-of-defun)
-
+;; =================================================================
  
 ;; (setq c-default-style
 ;;       '((java-mode . "java")
