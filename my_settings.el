@@ -2,6 +2,8 @@
 (setq c-default-style "linux"
       c-basic-offset 4)
 (setq-default tab-width 4)
+;; (custom-set-variables '(tab-width 4))
+(setq sgml-basic-offset 4)
 (setq-default indent-tabs-mode nil)
 ;==================================================================
 
@@ -30,15 +32,43 @@
   )
  
 (global-set-key "\M-;" 'comment-or-uncomment-region-or-line)
+;; (global-set-key "\M-;" )
 ;; =================================================================
 
 ;; Move by defun with meta-up and meta-down
 (define-key input-decode-map "\e\eOA" [(meta up)])
 (define-key input-decode-map "\e\eOB" [(meta down)])
-(global-set-key [(meta up)] 'beginning-of-defun)
-(global-set-key [(meta down)] 'end-of-defun)
+
+(defun cm-fast-step-upward ()
+  "Step 3 lines up, recenteres the screen."
+  (interactive)
+  (forward-line -3)
+  (recenter))
+
+(defun cm-fast-step-downward ()
+  "Step 3 lines down, recenteres the screen."
+  (interactive)
+  (forward-line 3)
+  (recenter))
+
+(global-set-key [(meta up)] 'cm-fast-step-upward)
+(global-set-key [(meta down)] 'cm-fast-step-downward)
+
 ;; =================================================================
- 
+
+(global-linum-mode 1)
+(setq linum-format "%4d\u2503 ")
+(show-paren-mode)
+(add-to-list 'custom-theme-load-path "~/MySettings/emacs-color-theme-solarized/")
+(add-to-list 'load-path "~/MySettings/Emacs/")
+(load-theme 'solarized-dark t)
+
+(require 'gradle-mode)
+(gradle-mode 1)
+
+
+;; (set solarized-contrast "high")
+;; (set solarized-visibility "high")
 ;; (setq c-default-style
 ;;       '((java-mode . "java")
 
@@ -49,4 +79,3 @@
 ;==== Automatically insert closing braces =========================
 
 ;==================================================================
-;============================
