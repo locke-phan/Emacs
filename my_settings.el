@@ -63,10 +63,6 @@
 (add-to-list 'load-path "~/MySettings/Emacs/")
 (load-theme 'solarized-dark t)
 
-(require 'gradle-mode)
-(gradle-mode 1)
-
-
 ;; (set solarized-contrast "high")
 ;; (set solarized-visibility "high")
 ;; (setq c-default-style
@@ -79,3 +75,27 @@
 ;==== Automatically insert closing braces =========================
 
 ;==================================================================
+
+;==== Groovy/Gradle stuff ====
+;;; turn on syntax highlighting
+(global-font-lock-mode 1)
+
+;;; use groovy-mode when file ends in .groovy or has #!/bin/groovy at start
+(autoload 'groovy-mode "groovy-mode" "Major mode for editing Groovy code." t)
+(add-to-list 'auto-mode-alist '("\.groovy$" . groovy-mode))
+(add-to-list 'auto-mode-alist '("\.gradle$" . groovy-mode))
+(add-to-list 'interpreter-mode-alist '("groovy" . groovy-mode))
+
+;;; make Groovy mode electric by default.
+(add-hook 'groovy-mode-hook
+          '(lambda ()
+             (require 'groovy-electric)
+             (groovy-electric-mode)))
+;=============================
+;==== CMake stuff ====
+ (require 'cmake-mode)
+ (setq auto-mode-alist
+       (append '(("CMakeLists\\.txt\\'" . cmake-mode)
+                 ("\\.cmake\\'" . cmake-mode))
+               auto-mode-alist))
+;============================
